@@ -8,5 +8,15 @@
     <artifactId>day01</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <org.springframework-version>4.2.5.RELEASE</org.springframework-version>
+        <org.aspectj-version>1.6.5</org.aspectj-version>
+        <org.slf4j-version>1.7.18</org.slf4j-version>
+    </properties>
+
+
 </project>
