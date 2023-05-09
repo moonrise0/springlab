@@ -36,6 +36,15 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/pic")
+    public String pic( Model model) {
+        model.addAttribute("center", "pic");
+        return "index";
+    }
+
+
+
+
     @RequestMapping("/custinfo")
     public String custinfo(Model model,String id) throws Exception {
         Cust cust = null;
@@ -54,7 +63,7 @@ public class MainController {
 
         try {
 //            log.info("------------------------------------------" + cust.getPwd());
-//            cust.setPwd(encoder.encode(cust.getPwd()));
+            cust.setPwd(encoder.encode(cust.getPwd()));
             custService.modify(cust);   //비밀번호 그대로 들어감으로
         } catch (Exception e) {
             throw new Exception("시스템장애");
@@ -101,7 +110,7 @@ public class MainController {
     @RequestMapping("/registermpl")
     public String registerimpl(Model model, Cust cust, HttpSession session) throws Exception{
         try {
-//            cust.setPwd(encoder.encode(cust.getPwd()));
+            cust.setPwd(encoder.encode(cust.getPwd()));
             custService.register(cust);
             session.setAttribute("logincust", cust);
         } catch (Exception e) {

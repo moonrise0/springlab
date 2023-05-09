@@ -1,18 +1,37 @@
-
-let login_form = {
-    init:function(){
-        $('#login_btn').click(function(){
-            login_form.send();
+let register_form = {
+    init:() => {
+        $("#register_btn").click( () => {
+            register_forms_form.send();
         });
     },
-    send:function(){
-        $('#login_form').attr({
-            'action':'/loginimpl',
-            'method':'post'
+    send:() => {
+        $("#register_form").attr({
+            'action':'/registerimpl',
+            'method':'get'
         });
-        $('#login_form').submit();
+        $("#register_form").submit();
     }
 };
+
+$( () => {
+    register_form.init();
+});
+
+
+// let login_form = {
+//     init:function(){
+//         $('#login_btn').click(function(){
+//             login_form.send();
+//         });
+//     },
+//     send:function(){
+//         $('#login_form').attr({
+//             'action':'/loginimpl',
+//             'method':'post'
+//         });
+//         $('#login_form').submit();
+//     }
+// };
 
 
 
@@ -26,3 +45,7 @@ let jsp01 = {
         $('#jsp01').text(this.data+'');
     }
 };
+
+$(() => {
+    jsp01.init(num);
+});

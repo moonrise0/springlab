@@ -3,7 +3,8 @@
 
 
 <div class="col-sm-2 sidenav">
-  <p><a href="#">Link</a></p>
-  <p><a href="#">Link</a></p>
+  <p><a href="/pic">pic</a></p>
+  <c:if test="${logincust !=null}"></c:if>
+  <p><a href="/websocket">Websocket</a></p>
   <p><a href="#">Link</a></p>
 </div>

@@ -28,7 +28,7 @@ public class JSPController {
     public String jsp01(Model model){
         model.addAttribute("num",10000.234);
 
-        Cust cust = new Cust("id01", "pwd91","fklasdf");
+        Cust cust = new Cust("id01", "pwd01","<a href=''>K</a>");
         model.addAttribute("cust",cust);
 
         Date date = new Date();

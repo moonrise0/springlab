@@ -4,11 +4,14 @@ import com.kbstar.dto.Cust;
 import com.kbstar.dto.Marker;
 import com.kbstar.service.CustService;
 import com.kbstar.service.MarkerService;
+import com.kbstar.util.FileUploadUtil;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +25,19 @@ public class AjaxImplController {
     MarkerService markerService;
     @Autowired
     CustService custService;
+
+    @Value("${uploadimgdir}")
+    String imgdir;
+
+    @RequestMapping("/saveimg")
+    public String saveimg(MultipartFile file){
+        String filename = file.getOriginalFilename();
+        FileUploadUtil.saveFile(file, imgdir);
+        return filename;
+    }
+
+
+
 
     @RequestMapping("/getservertime")
     public Object getservertime() {

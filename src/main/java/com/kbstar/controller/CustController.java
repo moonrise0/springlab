@@ -2,19 +2,15 @@ package com.kbstar.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.Cust;
-import com.kbstar.dto.Item;
 import com.kbstar.service.CustService;
 import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.XSlf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Random;
 
@@ -48,15 +44,15 @@ public class CustController {
     }
     @RequestMapping("/get")
     public String get(Model model, String id){
-        Cust cust = new Cust( id, "pwd01","james");
+        Cust cust = new Cust( id, "xxx","james");
         model.addAttribute("gcust",cust);
         model.addAttribute("left",dir+"left");
         model.addAttribute("center",dir+"get");
         return "index";
     }
 
-    @RequestMapping("/all")
-    public String all(Model model) throws Exception {
+    @RequestMapping("/getall")
+    public String getall(Model model) throws Exception {
         List<Cust> list= null;
         try {
             list = custService.getall();
@@ -65,7 +61,7 @@ public class CustController {
         }
         model.addAttribute("clist",list);
         model.addAttribute("left",dir+"left");
-        model.addAttribute("center",dir+"all");
+        model.addAttribute("center",dir+"getall");
         return "index";
     }
 
@@ -77,8 +73,9 @@ public class CustController {
         } catch (Exception e) {
             throw new Exception("시스템 장애:ER0002");
         }
-        model.addAttribute("target", "cust");
+
         model.addAttribute("cpage", p);
+        model.addAttribute("target", "cust");
         model.addAttribute("left",dir+"left");
         model.addAttribute("center",dir+"allpage");
         return "index";

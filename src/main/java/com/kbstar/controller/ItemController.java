@@ -4,8 +4,6 @@ import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.Item;
 import com.kbstar.service.ItemService;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Slf4j
@@ -41,7 +38,7 @@ public class ItemController {
     public String all(Model model) throws Exception {
         List<Item> list = new ArrayList<>();
         try {
-            list = itemService.get();
+            list = itemService.getall();
         } catch (Exception e) {
             throw new Exception("시스템 장애:ER0002");
         }
@@ -59,8 +56,9 @@ public class ItemController {
         } catch (Exception e) {
             throw new Exception("시스템 장애:ER0002");
         }
-        model.addAttribute("target", "item");
         model.addAttribute("cpage", p);
+        model.addAttribute("target", "item");
+
         model.addAttribute("left",dir+"left");
         model.addAttribute("center",dir+"allpage");
         return "index";
