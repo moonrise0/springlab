@@ -37,7 +37,7 @@
     };
 
     $(function(){
-      center.init();
+     // center.init();
     })
 
   });
@@ -52,3 +52,4 @@
   <hr>
   <div id="w2"></div>
 </div>
+<%--메시지 CONFIG와 RESOURCE-BUNDLE 에 출처가있다.--%>

@@ -10,7 +10,7 @@
             $('#cfr_btn').click(function(){
                 $('#cfr_form').attr({
                     'method':'post',
-                    'action':'/cfrimpl'
+                    'action':'/mycfr'
                 });
                 $('#cfr_form').submit();
             });
@@ -78,8 +78,14 @@
     <input type=button value="get Pic" onclick="pic.takeSnapshot();">
     <input type=button value="send Pic" onclick="pic.send();"><br>
     <input type=button value="Auto Pic" onclick="pic.takeAuto(5000);">
-    <form id="cfr_form">
+    <form id="cfr_form" action="/mycfr" method="/get">
         Image Name:<input type="text" name="imgname" id="imgname"><br>
-        <button id="cfr_btn">CFR</button>
+        <button type="submit" id="cfr_btn">CFR</button>
+<%--        submit로 되어있으면 자바스크립트 통하지않고 보낼수 있다. 굳이 그럴경우 action과 method 필요없음.--%>
+
     </form>
+    <h2>${result.emotion}</h2>
+    <h2>${result.pose}</h2>
+    <h2>${result.gender}</h2>
+    <h2>${result.age}</h2>
 </div>
