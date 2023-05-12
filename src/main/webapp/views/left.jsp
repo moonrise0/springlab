@@ -10,5 +10,7 @@
 
   <p><a href="/cfr1">CFR1</a></p>
   <p><a href="/cfr2">CFR2</a></p>
+  <p><a href="/ocr1">OCR1</a></p>
+  <p><a href="/ocr1">OCR2</a></p>
 
 </div>

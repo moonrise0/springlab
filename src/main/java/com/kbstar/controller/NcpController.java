@@ -4,6 +4,7 @@ import com.kbstar.dto.Ncp;
 import com.kbstar.util.CFRCelebrityUtil;
 import com.kbstar.util.CFRFaceUtil;
 import com.kbstar.util.FileUploadUtil;
+import com.kbstar.util.OCRUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -72,17 +73,17 @@ public class NcpController {
         JSONObject obj = (JSONObject) faces.get(0); //배열에서 0번째를 뽑으면 json object
 
         JSONObject gender = (JSONObject) obj.get("gender"); //배열에서 셀레브리티뽑으면 json object
-        gender_value = (String)gender.get("value");//(셀레브리트에서 밸류를 빼니 스트링 밸류)
+        gender_value = (String) gender.get("value");//(셀레브리트에서 밸류를 빼니 스트링 밸류)
 
 
-        JSONObject age = (JSONObject)obj.get("age");
-        age_value = (String)age.get("value");
+        JSONObject age = (JSONObject) obj.get("age");
+        age_value = (String) age.get("value");
 
-        JSONObject emotion  = (JSONObject)obj.get("emotion");
-        emotion_value = (String)emotion.get("value");
+        JSONObject emotion = (JSONObject) obj.get("emotion");
+        emotion_value = (String) emotion.get("value");
 
-        JSONObject pose  = (JSONObject)obj.get("pose");
-        pose_value = (String)pose.get("value");
+        JSONObject pose = (JSONObject) obj.get("pose");
+        pose_value = (String) pose.get("value");
 
         Map<String, String> map = new HashMap<>();
         map.put("emotion", emotion_value);
@@ -95,7 +96,8 @@ public class NcpController {
         //결과를  map에다 넣기로 함.
         model.addAttribute("center", "cfr2");
         return "index";
-     }
+    }
+
     @RequestMapping("/mycfr")
     public String mycfr(Model model, String imgname) throws ParseException {
 
@@ -112,17 +114,17 @@ public class NcpController {
         JSONObject obj = (JSONObject) faces.get(0); //배열에서 0번째를 뽑으면 json object
 
         JSONObject gender = (JSONObject) obj.get("gender"); //배열에서 셀레브리티뽑으면 json object
-        gender_value = (String)gender.get("value");//(셀레브리트에서 밸류를 빼니 스트링 밸류)
+        gender_value = (String) gender.get("value");//(셀레브리트에서 밸류를 빼니 스트링 밸류)
 
 
-        JSONObject age = (JSONObject)obj.get("age");
-        age_value = (String)age.get("value");
+        JSONObject age = (JSONObject) obj.get("age");
+        age_value = (String) age.get("value");
 
-        JSONObject emotion  = (JSONObject)obj.get("emotion");
-        emotion_value = (String)emotion.get("value");
+        JSONObject emotion = (JSONObject) obj.get("emotion");
+        emotion_value = (String) emotion.get("value");
 
-        JSONObject pose  = (JSONObject)obj.get("pose");
-        pose_value = (String)pose.get("value");
+        JSONObject pose = (JSONObject) obj.get("pose");
+        pose_value = (String) pose.get("value");
 
         Map<String, String> map = new HashMap<>();
         map.put("emotion", emotion_value);
@@ -137,7 +139,39 @@ public class NcpController {
         return "index";
     }
 
+    @RequestMapping("/ocr1impl")
+    public String ocr1impl(Model model, Ncp ncp) {
+        //이미지를 서버에 저장하고\
+        FileUploadUtil.saveFile(ncp.getImg(), imgpath);
 
+        //ncp에 요청한다
+        String imgname = ncp.getImg().getOriginalFilename();
+        // 결과를 받는다.
+        JSONObject result =
+                (JSONObject) OCRUtil.getResult(imgpath, imgname);
+        Map map = OCRUtil.getData(result);
+        model.addAttribute("result", map);
+        model.addAttribute("center", "ocr1");
+
+        return "index";
 
     }
+//
+//    @RequestMapping("/ocrbapl1impl")
+//    public String ocrbapl1impl(Model model, Ncp ncp) throws Exception{
+//        //이미지 저장한다.
+//        FileUploadUtil.saveFile(ncp.getImg(),imgpath);
+//        //NCP에 요청한다.
+//        String imgname = ncp.getImg().getOriginalFilename();
+//        JSONObject result = (JSONObject) OCRBaplUtil.getResult(imgpath, imgname);
+//        Map<String, String> map = new HashMap<>();
+//        map = OCRBaplUtil.getData(result);
+//
+////결과를 jsp에 뿌린다.
+//        model.addAttribute("result", map);
+////결과를 받는다.
+//        model.addAttribute("center", "ocrbapl1");
+//        return "index";
+//    }
 
+    }
