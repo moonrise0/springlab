@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.text.ParseException;
 @Slf4j
 @SpringBootTest
+
 public class CFRFaceTests {
 
     @Value("${uploadimgdir}")
@@ -20,7 +21,7 @@ public class CFRFaceTests {
 
     @Autowired
     CFRFaceUtil cfrFaceUtil;
-
+//g
     @Test
     void contextLoads() throws org.json.simple.parser.ParseException {
 
