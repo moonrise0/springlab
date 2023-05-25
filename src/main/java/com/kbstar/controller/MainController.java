@@ -39,4 +39,17 @@ public class MainController {
         return "index";
     }
 
+
+    @RequestMapping("/profile")
+    public String profile(Model model){
+        model.addAttribute("center","profile");
+        return "index";
+    }
+
+
+    @RequestMapping("/calender")
+    public String calender(Model model){
+        model.addAttribute("center","calender");
+        return "index";
+    }
 }
