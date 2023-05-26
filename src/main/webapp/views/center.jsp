@@ -6,45 +6,203 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 
-
-
 <style>
-    #calendar {
-        width: 1500px;
-        height: 1500px;
+    /* 모달 창 스타일 */
+    .modal {
+        display: none; /* 초기에는 숨김 처리 */
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5); /* 배경에 어둡게 표시 */
     }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto; /* 화면 중앙으로 위치 */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    #calendar {
+        width: 900px;
+        height: 900px;
+    }
+
 </style>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView : 'dayGridMonth',
-            headerToolbar : {
-                start : 'prev next today',
-                center : 'title',
-                end : 'dayGridMonth,dayGridWeek,dayGridDay'
+
+            eventOverlap: false,
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                start: 'prev next today',
+                center: 'title',
+                end: 'dayGridMonth,dayGridWeek,dayGridDay'
             },
-            titleFormat : function(date) {
+            titleFormat: function(date) {
                 return date.date.year + '년 ' + (parseInt(date.date.month) + 1) + '월';
             },
-            selectable : true,
-            droppable : true,
-            editable : true,
+            selectable: true,
+            droppable: true,
+            editable: true,
             nowIndicator: true,
-            locale: 'ko'
+            locale: 'ko',
+            events: [
+                {
+                    title: '이정훈',
+                    start: '2023-05-01', // 예약 시작 날짜
+                    end: '2023-05-13', // 예약 종료 날짜
+                    backgroundColor: '#D65BC1'
+                },
+                {
+                    title: '박말수',
+                    start: '2023-05-08',
+                    end: '2023-05-10',
+                    backgroundColor: '#46649B'
+                },
+                {
+                    title: '최정수',
+                    start: '2023-05-08',
+                    end: '2023-05-10',
+                    backgroundColor: '#37B7B7'
+                }
+
+            ],
+            dateClick: function(info) {
+                var date = info.date;
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1;
+                var day = date.getDate()  ;
+                var formattedDate = year + '-' + month + '-' + day;
+                openModal(formattedDate);
+            },
+            eventClick: function(info) {
+                showReservationDates(info.event);
+            }
         });
         calendar.render();
-
-
     });
+
+    function openModal(date) {
+        var modal = document.getElementById('myModal');
+        var modalContent = document.getElementById('modalContent');
+        modalContent.innerHTML = '선택된 날짜: ' + date;
+        modal.style.display = 'block';
+    }
+
+    function closeModal() {
+        var modal = document.getElementById('myModal');
+        modal.style.display = 'none';
+    }
+
+    function showReservationDates(event) {
+
+        var startDate = event.start.toLocaleDateString();
+        var endDate = event.end;
+        endDate.setDate(endDate.getDate() - 1);
+        endDate = endDate.toLocaleDateString();
+
+        var modal = document.getElementById('myModal');
+        var modalContent = document.getElementById('modalContent');
+        var html = '<h2>' + event.title + ' 예약일정</h2>';
+        html += '예약 시작 날짜: ' + event.start.toLocaleDateString() + '<br>';
+        html += '예약 종료 날짜: ' + event.end.toLocaleDateString() + '<br>';
+        modalContent.innerHTML = html;
+        modal.style.display = 'block';
+
+    }
+
+
+    function updateReservation() {
+        var startDateInput = document.getElementById('startDate');
+        var endDateInput = document.getElementById('endDate');
+
+        var startDate = startDateInput.value;
+        var endDate = endDateInput.value;
+
+        // 유효성 검사 등 필요한 로직을 수행합니다.
+
+        // 업데이트된 날짜를 캘린더 이벤트에 반영합니다.
+        var event = calendar.getEventById(selectedEventId);
+        event.setDates(startDate, endDate);
+
+        // 모달 창을 닫습니다.
+        closeModal();
+
+
+    // function changeDate(event, eventId) {
+    //     event.preventDefault();
+    //     var newDateInput = document.getElementById('newDate');
+    //     var newDate = newDateInput.value;
+    //     if (newDate === '') {
+    //         alert('날짜를 입력해주세요.');
+    //         return;
+    //     }
+    //
+    //     var calendarEl = document.getElementById('calendar');
+    //     var calendar = calendarEl.fullCalendar('getCalendar');
+    //     var selectedEvent = calendar.getEventById(eventId);
+    //
+    //     var calendar = calendarEl.calendar; // 수정된 부분
+    //     var selectedEvent = calendar.getEventById(selectedEventId); // 수정된 부분
+    //     if (selectedEvent) {
+    //         selectedEvent.setStart(newDate);
+    //         selectedEvent.setEnd(newDate);
+    //         calendar.render();
+    //         closeModal();
+    //     }
+
+
+
+        }
+
 </script>
-<%--맨 위에 사진 부분--%>
 
 
+<!-- 맨 위에 사진 부분 -->
 
+<div id="calendar"></div>
 
-<div id='calendar'></div>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div id="modalContent">
+            <h2>예약 날짜 변경</h2>
+            <label for="startDate">시작 날짜:</label>
+            <input type="date" id="startDate" name="startDate">
+            <br>
+            <label for="endDate">종료 날짜:</label>
+            <input type="date" id="endDate" name="endDate">
+            <br>
+            <button onclick="updateReservation()">예약 업데이트</button>
+        </div>
+    </div>
+</div>
+
 
 
 

@@ -46,10 +46,17 @@ public class MainController {
         return "index";
     }
 
-
-    @RequestMapping("/calender")
-    public String calender(Model model){
-        model.addAttribute("center","calender");
+    @RequestMapping("/total")
+    public String total(Model model){
+        model.addAttribute("center","total");
         return "index";
     }
+
+
+
+//    @RequestMapping("/calender")
+//    public String calender(Model model){
+//        model.addAttribute("center","calender");
+//        return "index";
+//    }
 }
